@@ -1,0 +1,612 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto:wght@300&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: #BBD2C5;  
+    background: -webkit-linear-gradient(to bottom, #292E49, #536976, #BBD2C5);  
+    background: linear-gradient(to bottom, #292E49, #536976, #BBD2C5);
+    height: 1600px;
+    animation: transitionIn 1s;
+}
+
+@media screen and (max-width: 1600px) {
+    body {
+        height: 1800px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    body {
+        height: 2300px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    body {
+        height: 2800px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        height: 3000px;
+    }
+}
+
+@keyframes transitionIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 80px;
+    width: 100%;
+    background-color: #202635;
+}
+
+.nav_logo {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.nav_items {
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    list-style: none;
+    height: 90px;
+}
+
+.nav_item {
+    margin: 2rem;
+}
+
+.nav_item button {
+    visibility: visible;
+    color: white;
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    border: none;
+    background-color: transparent;
+}
+
+.nav_item button:hover {
+    cursor: pointer;
+}
+
+.temp_btn.active {
+    border-bottom: 5px solid #FFD700;
+}
+
+.temp_btn.hidden {
+    visibility: hidden;
+}
+
+.navbar2 {
+    display: block;
+    opacity: 1;
+    background: white;
+    height: 40px;
+}
+
+.navbar2.hidden {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.nav_items2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    list-style: none;
+    display: flex;
+    text-transform: uppercase;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.nav_item2 {
+    margin-left: 5rem;
+}
+
+.nav_item2:hover {
+    cursor: pointer;
+    padding-top: 0.2rem;
+    border-bottom: 4px solid #3d4967;
+}
+
+.close_icon {
+    position: absolute;
+    visibility: visible;
+    top: 85px;
+    right: 5px;
+    color: red;
+    height: 22px;
+    width: 22px;
+}
+
+.close_icon:hover {
+    cursor: pointer;
+    color: white;
+    background: red;
+    border-radius: 1000px;
+}
+
+.close_icon.hidden {
+    visibility: hidden;
+}
+
+.show_icon {
+    height: 40px;
+    width: 40px;
+    color: white;
+    visibility: visible;
+    transition: visibility 1s ease-in;
+}
+
+.show_icon.hidden {
+    visibility: hidden;
+    transition: visibility 1s ease-in;
+}
+
+.get_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5rem;
+    height: 4rem;
+    width: 100%;
+}
+
+.get_info input {
+    padding: 1rem;
+    width: 40%;
+    padding-left: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+    color: #1C1C1E;
+    border-top: 8px solid #2b5876;
+    border-left: 8px solid #2b5876;
+    border-bottom: 8px solid #2b5876;
+    background-color: #F8EEEC;
+    border-right: none;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.get_info input:focus {
+    outline: none;
+}
+
+.get_info input::placeholder {
+    color: #B8B8B8;
+    border: none;
+}
+
+.get_info input:focus::placeholder {
+    color: transparent;
+    transition: color 0.5s ease-in;
+}
+
+.get_info button {
+    padding: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+    background-color: #F8EEEC;
+    border: 8px solid #2b5876;
+    border-left: none;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.search_icon {
+    height: 20px;
+    width: 50px;
+}
+
+.get_info button:hover {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+    .get_info input {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .get_info input {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .get_info input {
+        width: 70%;
+    }
+
+    .get_info input, .get_info::placeholder, .get_info button {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .get_info input, .get_info::placeholder, .get_info button {
+        font-size: 15px;
+    }
+
+    .search_icon {
+        height: 15px;
+    }
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.main {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.history {
+    margin-top: 2rem;
+}
+
+.history_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+    background: #141E30;  
+    background: -webkit-linear-gradient(to top, #243B55, #141E30); 
+    background: linear-gradient(to top, #243B55, #141E30);
+    border-radius: 30px;
+    width: 80%;
+    height: 51em;
+    margin-left: 3rem;
+}
+
+.history_heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3vh;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    width: 100%;
+    padding-top: 2rem;
+}
+
+.history_items {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-top: 1rem;
+    width: 80%;
+    height: 700px;
+    overflow: hidden;
+    padding-right: 5px;
+    box-sizing: border-box;
+}
+
+.history_items:hover {
+    overflow-y: scroll;
+    padding-right: 0;
+}
+
+.history_items:hover::-webkit-scrollbar {
+    width: 5px;
+}
+
+.history_items:hover::-webkit-scrollbar-thumb {
+    background-color: #304665;
+    border-radius: 1000px;
+}
+
+.history_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+    text-transform: uppercase;
+    color: #9C9C9C;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    min-width: 175px;
+    min-height: 50px;
+    overflow: hidden;
+    background-color: #304665;
+    border-radius: 30px;
+    transition: opacity 2s ease-in, scale 0.5s linear;
+    will-change: opacity, scale;
+}
+
+.history_item.transition {
+    opacity: 0;
+    scale: 0.3;
+}
+
+.history_item:hover {
+    color: black;
+    background-color: white;
+    scale: 1.05;
+    cursor: pointer;
+    transition: scale 0.3s ease-in;
+}
+
+.weather_card.primary::before {
+    z-index: -1;
+    content: '';
+    background: url('https://images.pexels.com/photos/209831/pexels-photo-209831.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover;
+    position: absolute;
+    inset: 0;
+    filter: brightness(30%);
+    border-radius: 30px;
+}
+
+.weather_card.primary {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather_card {
+    margin-top: 3rem;
+    width: 80%;
+    border-radius: 30px;
+    padding: 1rem;
+    background: #000000;  
+    background: -webkit-linear-gradient(to bottom, #434343, #000000);  
+    background: linear-gradient(to bottom, #434343, #000000); 
+}
+
+@media screen and (max-width: 1200px) {
+    .weather_card{
+        width: 70%;
+        margin-top: 2rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .weather_card {
+        width: 65%;
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .weather_card {
+        width: 50%;
+    }
+}
+
+.location_name {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.date {
+    color: #899499;
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.temperature_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.temperature {
+    padding-top: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 75px;
+    font-weight: 100;
+    text-align: center;
+    padding-bottom: 0.5rem; 
+}
+
+.temperature_span {
+    color: white;
+    margin-left: 0.5rem;
+    font-size: 20px;
+}
+
+.weather_icon {
+    height: 100px;
+    width: 100px;
+}
+
+.weather_items {
+    display: grid;
+    padding-top: 1rem;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 6rem 6rem 6rem;
+    grid-gap: 1rem;
+}
+
+.weather_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0.5rem;
+    border: 2px solid black;
+    background: #232526;  
+    background: -webkit-linear-gradient(to right, #414345, #232526); 
+    background: linear-gradient(to right, #414345, #232526); 
+}
+
+.right_now {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    color: white;
+}
+
+.card_text {
+    padding-top: 0.5rem;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #899499;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.feels_like {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    font-weight: 100;
+    text-align: center;
+}
+
+.card_info {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    font-weight: 100;
+    text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .weather_items {
+        grid-template-columns: 15rem;
+        grid-template-rows: 4rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .weather_items {
+        grid-template-columns: 1fr;
+    }
+}
+
+.forecast_title {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.weather_forecast {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.forecast_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    border-left: 2px solid #C9D6FF;
+    border-left: 2px solid -webkit-linear-gradient(to top, #E2E2E2, #C9D6FF);
+    border-left: 2px solid linear-gradient(to top, #E2E2E2, #C9D6FF); 
+}
+
+.forecast_item:nth-child(1) {
+    border: none;
+}
+
+@media screen and (max-width: 1600px) {
+    .weather_forecast {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    .forecast_item:nth-child(3) {
+        border: none;
+    }
+
+    .forecast_item:nth-child(1), .forecast_item:nth-child(2) {
+        border-bottom: 2px solid #C9D6FF;
+        border-bottom: 2px solid -webkit-linear-gradient(to top, #E2E2E2, #C9D6FF);
+        border-bottom: 2px solid linear-gradient(to top, #E2E2E2, #C9D6FF); 
+        padding-bottom: 1rem;
+    }
+
+    .forecast_item:nth-child(3), .forecast_item:nth-child(4) {
+        padding-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .weather_forecast {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+    }
+
+    .forecast_item {
+        border: none;
+    }
+
+    .forecast_item:nth-child(3) {
+        border-bottom: 2px solid #C9D6FF;
+        border-bottom: 2px solid -webkit-linear-gradient(to top, #E2E2E2, #C9D6FF);
+        border-bottom: 2px solid linear-gradient(to top, #E2E2E2, #C9D6FF); 
+        padding-bottom: 1rem;
+    }
+
+    .forecast_item:nth-child(2) {
+        padding-top: 1rem;
+    }
+}
+
+.forecast_date {
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 0.5rem;
+}
+
+.forecast_temperature {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    font-size: 70px;
+    background: #005AA7; 
+    background: -webkit-linear-gradient(to top, #FFFDE4, #005AA7); 
+    background: linear-gradient(to top, #FFFDE4, #005AA7); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.temperature:nth-child(2) {
+    font-size: 20px;
+}
