@@ -272,6 +272,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    transition: opacity 4s ease-in;
+    will-change: opacity;
+}
+
+.main.transition {
+    opacity: 0;
 }
 
 .history {
