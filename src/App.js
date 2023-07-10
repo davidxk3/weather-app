@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaSearch } from "react-icons/fa";
+import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const App = () => {
@@ -30,8 +31,7 @@ const App = () => {
           days: "3",
         },
         headers: {
-          "X-RapidAPI-Key":
-            process.env.REACT_APP_API_KEY,
+          "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
           "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
         },
       };
@@ -57,17 +57,20 @@ const App = () => {
 
   useEffect(() => {
     if (names.length > 0) {
-      const historyItems = document.querySelectorAll('.history_item');
+      const historyItems = document.querySelectorAll(".history_item");
       requestAnimationFrame(() => {
-        historyItems[names.length - 1].classList.remove('transition');
+        historyItems[names.length - 1].classList.remove("transition");
       });
     }
   }, [names]);
-  
+
   const handleSubmit = () => {
+    const container = document.querySelector(".temperature_btn_container");
     const temperatures = document.querySelectorAll(".temp_btn");
-    temperatures[0].classList.remove("hidden");
-    temperatures[1].classList.remove("hidden");
+    container.classList.remove("hidden");
+    temperatures.forEach(function (temperature) {
+      temperature.classList.remove("hidden");
+    });
     fetchData();
   };
 
@@ -140,35 +143,89 @@ const App = () => {
     }
   };
 
-  // For the "close" icon to work with navbar2
-  const closeNav = () => {
-    const nav = document.querySelector(".navbar2");
-    nav.classList.add("hidden");
-    setTimeout(function () {
-      nav.style.display = "none";
-    }, 500);
-  };
-
-  // To get rid of navbar2 once mobile size
-  window.addEventListener("resize", function () {
-    if (window.innerWidth <= 1250) {
-      closeNav();
-    }
-  });
-
   // Click on any of the history items to bring up their weather data
   useEffect(() => {
-    const historyItems = document.querySelectorAll('.history_item');
-  
+    const historyItems = document.querySelectorAll(".history_item");
     historyItems.forEach((item) => {
-      item.addEventListener('click', function(event) {
+      item.addEventListener("click", function (event) {
         const historyItem = event.target;
         const index = Array.from(historyItems).indexOf(historyItem);
         setWeatherData(searchHistory[index]);
       });
     });
   }, [searchHistory]);
-  
+
+  // Mobile responsive bar
+  const mobileResponsive = () => {
+    if (names.length > 0) {
+      const mobileBar = document.querySelector(".drop_menu");
+      const closeMobileMenu = document.querySelector(".close_menu");
+      const mobileNav = document.querySelector(".mobile_nav");
+      const container = document.querySelector(".container");
+      const history = document.querySelector(".history_container");
+      const main = document.querySelector(".main");
+      if (window.innerWidth <= 1600) {
+        mobileBar.classList.remove("hidden");
+        closeMobileMenu.classList.add("hidden");
+        if (history) {
+          history.classList.add("hidden");
+          container.classList.add("mobile");
+          main.classList.add("mobile");
+        }
+      } else {
+        mobileBar.classList.add("hidden");
+        mobileNav.classList.add("hidden");
+        if (history) {
+          history.classList.remove("hidden");
+          container.classList.remove("mobile");
+          main.classList.remove("mobile");
+        }
+      }
+    }
+  };
+
+  const historyResponsive = () => {
+    const mobileHistory = document.querySelector(".mobile_nav");
+    const regularHistory = document.querySelector(".history_container");
+    const history = document.querySelector(".history_items");
+    if (window.innerWidth <= 1600 && mobileHistory && history) {
+      mobileHistory.appendChild(history);
+    } else {
+      if (regularHistory && history) {
+        regularHistory.appendChild(history);
+      }
+    }
+  };
+
+  useEffect(() => {
+    mobileResponsive();
+    historyResponsive();
+  }, weatherData);
+
+  window.addEventListener("resize", function () {
+    mobileResponsive();
+    historyResponsive();
+  });
+
+  const mobileBarOn = () => {
+    const mobileNav = document.querySelector(".mobile_nav");
+    const onIcon = document.querySelector(".drop_menu");
+    const offIcon = document.querySelector(".close_menu");
+
+    mobileNav.classList.remove("hidden");
+    onIcon.classList.add("hidden");
+    offIcon.classList.remove("hidden");
+  };
+
+  const mobileBarOff = () => {
+    const mobileNav = document.querySelector(".mobile_nav");
+    const onIcon = document.querySelector(".drop_menu");
+    const offIcon = document.querySelector(".close_menu");
+
+    mobileNav.classList.add("hidden");
+    onIcon.classList.remove("hidden");
+    offIcon.classList.add("hidden");
+  };
 
   return (
     <>
@@ -176,33 +233,28 @@ const App = () => {
         <div className="nav_logo">
           <h1>Weather Radar</h1>
         </div>
-        <ul className="nav_items">
-          <li className="nav_item">
-            <button className="temp_btn active hidden">C°</button>
-          </li>
-          <li className="nav_item">
-            <button className="temp_btn hidden">F°</button>
-          </li>
-        </ul>
+        <MdOutlineArrowDropDownCircle
+          className="drop_menu hidden"
+          onClick={mobileBarOn}
+        />
+        <AiOutlineCloseCircle
+          className="close_menu hidden"
+          onClick={mobileBarOff}
+        />
       </nav>
 
-      <nav className="navbar2">
-        <ul className="nav_items2">
-          <li className="nav_item2">
-            <h1>Air Quality</h1>
-          </li>
-          <li className="nav_item2">
-            <h1>Reports</h1>
-          </li>
-          <li className="nav_item2">
-            <h1>Severe Weather</h1>
-          </li>
-          <li className="nav_item2">
-            <h1>News</h1>
-          </li>
-        </ul>
-        <AiOutlineCloseCircle className="close_icon" onClick={closeNav} />
+      <nav className="mobile_nav hidden">
+        <h1 className="history_heading mobile">Search History</h1>
       </nav>
+
+      <ul className="temperature_btn_container hidden">
+        <li className="nav_item">
+          <button className="temp_btn active hidden">C°</button>
+        </li>
+        <li className="nav_item">
+          <button className="temp_btn hidden">F°</button>
+        </li>
+      </ul>
 
       <div className="get_info">
         <input
@@ -245,7 +297,7 @@ const App = () => {
 
             <div className="weather_card">
               <h1 className="right_now">
-                Today in {weatherData.location.name}...
+                Today in {weatherData.location.name}
               </h1>
 
               <div className="weather_items">
