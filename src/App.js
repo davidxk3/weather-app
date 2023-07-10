@@ -40,7 +40,7 @@ const App = () => {
         const response = await axios(options);
         setWeatherData(response.data);
         const historyName = (
-          <p key={names.length} className="history_item transition">
+          <p key={names.length} className="history_item transition" onClick={mobileBarOff}>
             {response.data.location.name}
           </p>
         );
