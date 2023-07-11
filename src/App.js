@@ -14,7 +14,7 @@ const App = () => {
   const fetchData = async () => {
     let alreadyExist = false;
 
-    // making sure that we haven't already searched this location - don't have to use another API call
+    // Prevents another API call if name already exists (checks for exact typing)
     for (const history of searchHistory) {
       if (history.location.name.toLowerCase() === location.toLowerCase()) {
         setWeatherData(history);
@@ -39,6 +39,13 @@ const App = () => {
       try {
         const response = await axios(options);
         setWeatherData(response.data);
+        // Checks after another API call (whatever location is autocorrected to) and makes sure it already doesn't exist
+        for (let i = 0; i < names.length; i++) {
+          if (names[i].props.children === response.data.location.name) {
+            return;
+          }
+        }
+
         const historyName = (
           <p key={names.length} className="history_item transition" onClick={mobileBarOff}>
             {response.data.location.name}
@@ -65,9 +72,9 @@ const App = () => {
   }, [names]);
 
   const handleSubmit = () => {
-    const container = document.querySelector(".temperature_btn_container");
+    const tempBtnContainer = document.querySelector(".temperature_btn_container");
     const temperatures = document.querySelectorAll(".temp_btn");
-    container.classList.remove("hidden");
+    tempBtnContainer.classList.remove("hidden");
     temperatures.forEach(function (temperature) {
       temperature.classList.remove("hidden");
     });
@@ -135,6 +142,13 @@ const App = () => {
 
   useEffect(() => {
     setTemperature();
+    const container = document.querySelector('.container');
+    if (container) {
+      container.classList.add('transition');
+      requestAnimationFrame(() => {
+        container.classList.remove('transition');
+      });
+    }
   }, [weatherData]);
 
   const handleKeyPress = (event) => {
@@ -200,7 +214,7 @@ const App = () => {
   useEffect(() => {
     mobileResponsive();
     historyResponsive();
-  }, weatherData);
+  }, [weatherData]);
 
   window.addEventListener("resize", function () {
     mobileResponsive();
@@ -212,9 +226,11 @@ const App = () => {
     const onIcon = document.querySelector(".drop_menu");
     const offIcon = document.querySelector(".close_menu");
 
-    mobileNav.classList.remove("hidden");
-    onIcon.classList.add("hidden");
-    offIcon.classList.remove("hidden");
+    if (window.innerWidth <= 1600) {
+      mobileNav.classList.remove("hidden");
+      onIcon.classList.add("hidden");
+      offIcon.classList.remove("hidden");
+    }
   };
 
   const mobileBarOff = () => {
@@ -222,16 +238,18 @@ const App = () => {
     const onIcon = document.querySelector(".drop_menu");
     const offIcon = document.querySelector(".close_menu");
 
-    mobileNav.classList.add("hidden");
-    onIcon.classList.remove("hidden");
-    offIcon.classList.add("hidden");
+    if (window.innerWidth <= 1600) {
+      mobileNav.classList.add("hidden");
+      onIcon.classList.remove("hidden");
+      offIcon.classList.add("hidden");
+    }
   };
 
   return (
     <>
       <nav className="navbar">
         <div className="nav_logo">
-          <h1>Weather Radar</h1>
+          <h1>DL Weather</h1>
         </div>
         <MdOutlineArrowDropDownCircle
           className="drop_menu hidden"
@@ -262,7 +280,7 @@ const App = () => {
           type="text"
           id="location"
           value={location}
-          placeholder="Enter location"
+          placeholder="Enter city"
           onChange={(e) => setLocation(e.target.value)}
           onKeyPress={handleKeyPress}
         />
