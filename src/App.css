@@ -342,6 +342,7 @@ body {
 
 .history_items {
     display: flex;
+    align-items: center;
     position: relative;
     flex-direction: column;
     margin-top: 1rem;
@@ -400,6 +401,20 @@ body {
     scale: 1.05;
     cursor: pointer;
     transition: scale 0.3s ease-in;
+}
+
+.history_item.active {
+    color: black;
+    background-color: #7dcae6;
+    cursor: pointer;
+    transition: opacity 2s ease-in;
+    will-change: opacity;
+}
+
+@media screen and (max-width: 1600px) {
+    .history_item {
+        width: 80%;
+    }
 }
 
 .weather_card.primary::before {
@@ -661,4 +676,113 @@ body {
 
 .temperature:nth-child(2) {
     font-size: 20px;
+}
+
+.alert {
+    font-family: 'Montserrat', sans-serif;
+    z-index: 999;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    height: 40%;
+    width: 50%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 20px;
+    transition: opacity 0.2s ease-in;
+}
+
+.alert.hidden {
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+.alert_icon {
+    z-index: 1000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -310%);
+    color: #8B0000;
+    border: 5px solid white;
+    border-top-left-radius: 200px;
+    border-top-right-radius: 200px;
+    background: white;
+    height: 100px;
+    width: 100px;
+    transition: height 0.3s ease-in;
+}
+
+.alert_icon.hidden {
+    z-index: -1;
+    height: 0;
+    opacity: 0;
+}
+
+.alert h1 {
+    text-align: center;
+}
+
+.alert h1, .alert p {
+    text-align: center;
+    width: 90%;
+}
+
+.alert button {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: white;
+    position: absolute;
+    padding: 0.5rem;
+    bottom: 1.5rem;
+    background: #8B0000;
+    border-radius: 10px;
+    border: none;
+    width: 30%;
+}
+
+.alert button:hover {
+    cursor: pointer;
+    background: #da0000;
+}
+
+@media screen and (max-width: 1200px) {
+    .alert {
+        width: 70%;
+    }
+
+    .alert p {
+        margin-right: 2rem;
+        margin-left: 2rem;
+    }
+
+    .alert_icon {
+        height: 75px;
+        width: 75px;
+        transform: translate(-50%, -360%);
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .alert {
+        height: 45%;
+        width: 80%;
+    }
+
+    .alert_icon {
+        transform: translate(-50%, -400%);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .alert {
+        width: 100%;
+    }
 }

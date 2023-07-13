@@ -4,6 +4,7 @@ import axios from "axios";
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { TbWorldQuestion } from "react-icons/tb";
 
 const App = () => {
   const [location, setLocation] = useState("");
@@ -47,7 +48,7 @@ const App = () => {
         }
 
         const historyName = (
-          <p key={names.length} className="history_item transition" onClick={mobileBarOff}>
+          <p key={names.length} className="history_item transition">
             {response.data.location.name}
           </p>
         );
@@ -57,12 +58,16 @@ const App = () => {
           response.data,
         ]);
       } catch (error) {
-        console.error(error);
+        const alert = document.querySelector('.alert');
+        const icon = document.querySelector('.alert_icon');
+        alert.classList.remove('hidden');
+        icon.classList.remove('hidden');
       }
     }
   };
 
   useEffect(() => {
+    // transition
     if (names.length > 0) {
       const historyItems = document.querySelectorAll(".history_item");
       requestAnimationFrame(() => {
@@ -71,15 +76,31 @@ const App = () => {
     }
   }, [names]);
 
+  useEffect(() => {
+    const historyItems = Array.from(document.querySelectorAll('.history_item'));
+    historyItems.forEach(function(item) {
+      if (item.textContent === weatherData.location.name) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }, [weatherData]);
+
   const handleSubmit = () => {
-    const tempBtnContainer = document.querySelector(".temperature_btn_container");
+    fetchData();
+  };
+
+  useEffect(() => {
+    if (weatherData) {
+      const tempBtnContainer = document.querySelector(".temperature_btn_container");
     const temperatures = document.querySelectorAll(".temp_btn");
     tempBtnContainer.classList.remove("hidden");
     temperatures.forEach(function (temperature) {
       temperature.classList.remove("hidden");
     });
-    fetchData();
-  };
+    }
+  }, [weatherData]);
 
   const updateTemperature = () => {
     if (!weatherData) return; // Check if weatherData is null
@@ -142,11 +163,11 @@ const App = () => {
 
   useEffect(() => {
     setTemperature();
-    const container = document.querySelector('.container');
+    const container = document.querySelector(".container");
     if (container) {
-      container.classList.add('transition');
+      container.classList.add("transition");
       requestAnimationFrame(() => {
-        container.classList.remove('transition');
+        container.classList.remove("transition");
       });
     }
   }, [weatherData]);
@@ -245,6 +266,25 @@ const App = () => {
     }
   };
 
+  // For history item - turn mobile navbar off if clicked 
+  const historyItems = document.querySelectorAll(".history_item");
+
+  if (historyItems) {
+    historyItems.forEach(function (historyItem) {
+      historyItem.addEventListener("click", function (event) {
+        mobileBarOff();
+      });
+    });
+  }
+
+  // Closing alert if user inputs invalid location
+  const closeAlert = () => {
+    const alert = document.querySelector('.alert');
+    const icon = document.querySelector('.alert_icon');
+    alert.classList.add('hidden');
+    icon.classList.add('hidden');
+  }
+
   return (
     <>
       <nav className="navbar">
@@ -287,6 +327,14 @@ const App = () => {
         <button onClick={handleSubmit} className="submit_btn">
           <FaSearch className="search_icon" />
         </button>
+      </div>
+
+      <TbWorldQuestion className="alert_icon hidden"/>
+      <div className="alert hidden">
+        <h1>Invalid Location</h1>
+        <p>Could not find the location "{location}" 
+        <br/>Please try again with a valid location.</p>
+        <button onClick={closeAlert}>Close</button>
       </div>
 
       {weatherData && (
