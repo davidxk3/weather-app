@@ -1,4 +1,11 @@
-# Getting Started with Create React App
+# Created in React (frontend) and Node.JS (backend) to retrieve data from WeatherAPI
+## To access:
+https://davidxk3.github.io/weather-app/
+## Purpose:
+Provides general weather information given a city or a general location. Data is fetched in the backend by WeatherAPI.
+
+
+# To use locally 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
